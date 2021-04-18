@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <title>JavaScript </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body { background-color: slategrey;
+            margin-left: 30%;
+            font: 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;   
+            padding: 0 10px; 
+        }
+        h1{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: 30%;}
+        table{ color:black; }
+        th{color: white;}
+        table, th, td{ border: 1px solid #999; border-collapse: collapse; }
+        table td, table th{ height: 30px; padding: 5px; width: 60px;}
+        table td.active{ color: #fff; background-color: #333; }
+ </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Calender </h1>
+        <table>
+            <caption></caption>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tues</th>
+                <th>Wed</th>
+                <th>Thurs</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </table>
+    </div>     
+<script>  
+    "use strict";
+
+    var monthname=["jan","feb","mar","apr","may","june","july","aug","sept","oct","nov","dec"];
+
+    function $(x){ return document.querySelector(x)};
+
+    var t=new Date( );
+    var date=t.getDate();
+    var day=t.getDay();
+    var month=t.getMonth();
+    var year=t.getFullYear();
+    var td=31;                  // total days in a month
+    if( month==3 || month==5 || month==8 || month==10){ td=30;}
+    else if( month==1 && year%4==0 ){ td=29;}
+    else if( month==1  ){ td=28;}
+    else{ td=31}
+    
+    $("table caption").innerHTML=monthname[month].toUpperCase() + " "+ year;
+
+
+    var p=day%7;                    // 0-6
+
+    var counter=1;                      // 1-42
+    var count=1;
+    for( var i=1; i<=6; i++){
+        var tr=document.createElement("tr");
+        for( var j=1; j<=7; j++){
+            
+            if( counter>p && count<=td){ 
+                if( count==date){
+                    tr.innerHTML+="<td class='active'> " + count+ " </td>";count++;
+                }
+                else{
+                    tr.innerHTML+="<td> " + count+ " </td>";count++;
+                }
+            }
+            else{
+                tr.innerHTML+="<td></td>";
+            }
+            counter++; 
+        }
+        $("table").appendChild(tr);
+    };
+</script>   
+</body>            
+</html>
